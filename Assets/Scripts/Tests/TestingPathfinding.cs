@@ -9,6 +9,9 @@ public class TestingPathfinding : MonoBehaviour
     protected bool debugGrid = true;
 
     [SerializeField]
+    protected bool startFromLastNode = false;
+
+    [SerializeField]
     protected PathfindingDebugVisual pathfindingDebugVisual;
 
     [SerializeField]
@@ -19,7 +22,7 @@ public class TestingPathfinding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pathfinding = new Pathfinding(width: 10, height: 10, debugGrid: debugGrid);
+        pathfinding = new Pathfinding(width: 10, height: 10, startPosition: Vector2Int.zero, debugGrid: debugGrid);
 
         if (pathfindingDebugVisual != null)
         {
@@ -40,7 +43,7 @@ public class TestingPathfinding : MonoBehaviour
             var worldPosition = UtilsClass.GetMouseWorldPosition();
             var cellPosition = pathfinding.Grid.WorldToCell(worldPosition);
 
-            List<PathNode> path = pathfinding.FindPath(Vector2Int.zero, cellPosition);
+            List<PathNode> path = pathfinding.FindPath(cellPosition, startFromLastNode);
 
             if (path != null)
             {

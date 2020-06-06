@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Pathfinding
@@ -16,10 +17,25 @@ public class Pathfinding
 
     protected List<PathNode> openList;
     protected List<PathNode> closedList = new List<PathNode>();
+
+    protected Vector2Int initialPosition = Vector2Int.zero;
+    protected List<PathNode> path = new List<PathNode>();
     public GridBase<PathNode> Grid { get; set; }
-    public Pathfinding(int width, int height, bool debugGrid = true)
+
+    public PathNode LastNode {
+        get => path.Count > 0 ? path.Last() : null;
+        protected set { }
+    }
+    public Pathfinding(int width, int height, Vector2Int startPosition = default, bool debugGrid = true)
     {
         Grid = new GridBase<PathNode>(width, height, 10f, Vector3.zero, debugGrid);
+        initialPosition = startPosition;
+    }
+
+    public virtual List<PathNode> FindPath(Vector2Int endPos, bool startFromLastNode = true)
+    {
+        var startPos = startFromLastNode && LastNode != null ? LastNode.Position : initialPosition;
+        return FindPath(startPos, endPos);
     }
 
     public virtual List<PathNode> FindPath(Vector2Int startPos, Vector2Int endPos)
@@ -59,7 +75,7 @@ public class Pathfinding
             if (currentNode == endNode)
             {
                 // Found the final node!
-                List<PathNode> path = CalculatePath(endNode);
+                path = CalculatePath(endNode);
 
                 OnTakeSnapshot?.Invoke(Grid, currentNode, openList, closedList);
                 OnTakeFinalSnapshot?.Invoke(Grid, path);
