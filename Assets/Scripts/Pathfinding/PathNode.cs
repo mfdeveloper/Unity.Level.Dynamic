@@ -8,11 +8,22 @@ public class PathNode
     public int hCost;
     public int fCost;
 
+    protected bool walkable = true;
+
     public PathNode cameFromNode = null;
     public Vector2Int Position { get; set; }
-    public bool isWalkable {
-        get => true; 
-        private set { } 
+
+    public bool IsWalkable {
+
+        get => walkable;
+
+        set {
+            walkable = value;
+            if (grid != null)
+            {
+                grid.TriggerCellChange(Position);
+            }
+        }
     }
 
     protected GridBase<PathNode> grid;

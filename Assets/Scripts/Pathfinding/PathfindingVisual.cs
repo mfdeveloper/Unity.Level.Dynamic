@@ -12,7 +12,7 @@
 
 using UnityEngine;
 
-// TODO: Change the "PathfindingDebugVisual" class to show Meshes insteadof each gameObject to shows the path
+// TODO: Change to use only this class for pathfinding debug to show Meshes insteadof each gameObject to shows the path
 public class PathfindingVisual : MonoBehaviour {
 
     private GridBase<PathNode> grid;
@@ -28,7 +28,7 @@ public class PathfindingVisual : MonoBehaviour {
     {
         if (grid != null)
         {
-            grid.OnValueChange -= OnCellChange;
+            grid.OnCellChange -= OnCellChange;
         }
     }
 
@@ -36,10 +36,10 @@ public class PathfindingVisual : MonoBehaviour {
         this.grid = grid;
         UpdateVisual();
 
-        grid.OnValueChange += OnCellChange;
+        grid.OnCellChange += OnCellChange;
     }
 
-    private void OnCellChange(Vector3 cellPosition, PathNode value) {
+    private void OnCellChange(Vector2Int cellPosition, PathNode value) {
         updateMesh = true;
     }
 
@@ -60,7 +60,7 @@ public class PathfindingVisual : MonoBehaviour {
 
                 PathNode pathNode = grid.GetCell(x, y);
 
-                if (pathNode.isWalkable) {
+                if (pathNode.IsWalkable) {
                     quadSize = Vector3.zero;
                 }
 

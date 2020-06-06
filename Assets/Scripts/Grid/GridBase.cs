@@ -11,7 +11,7 @@ public class GridBase<T> where T : new()
     protected TextMesh[,] debugTextArray;
 
     // --- Events ---
-    public Action<Vector3, T> OnValueChange;
+    public Action<Vector2Int, T> OnCellChange;
     public bool showDebug;
 
     public int Width { get; set; }
@@ -52,7 +52,7 @@ public class GridBase<T> where T : new()
                 {
                     if (DefaultConstructor != null)
                     {
-                        gridArray[x, y] = (T) DefaultConstructor.Invoke(new object[] {this, x, y});
+                        gridArray[x, y] = (T)DefaultConstructor.Invoke(new object[] { this, x, y });
                     } else
                     {
                         gridArray[x, y] = new T();
@@ -63,12 +63,12 @@ public class GridBase<T> where T : new()
                 {
                     var worldPosition = CellToWorld(x, y);
 
-                    debugTextArray[x,y] = UtilsClass.CreateWorldText(
-                                            text: gridArray[x, y].ToString(), 
-                                            parent: null, 
-                                            localPosition: worldPosition + new Vector3(cellSize, cellSize) * 0.5f, 
-                                            fontSize: 20, 
-                                            color: Color.white, 
+                    debugTextArray[x, y] = UtilsClass.CreateWorldText(
+                                            text: gridArray[x, y].ToString(),
+                                            parent: null,
+                                            localPosition: worldPosition + new Vector3(cellSize, cellSize) * 0.5f,
+                                            fontSize: 20,
+                                            color: Color.white,
                                             textAnchor: TextAnchor.MiddleCenter
                                         );
 
@@ -85,6 +85,11 @@ public class GridBase<T> where T : new()
         }
     }
 
+    public virtual void TriggerCellChange(Vector2Int cellPosition, T value = default)
+    {
+        OnCellChange?.Invoke(cellPosition, value);
+    }
+
     public void SetCell(int x, int y, T value)
     {
         if (x >= 0 && y >= 0 && x < Width && y < Height)
@@ -93,7 +98,7 @@ public class GridBase<T> where T : new()
             debugTextArray[x, y].text = value.ToString();
         }
 
-        OnValueChange?.Invoke(new Vector3(x, y), value);
+        OnCellChange?.Invoke(new Vector2Int(x, y), value);
     }
 
     public void SetCell(Vector3 worldPosition, T value)

@@ -6,12 +6,6 @@ public class TestingPathfinding : MonoBehaviour
 {
 
     [SerializeField]
-    protected bool debugGrid = true;
-
-    [SerializeField]
-    protected bool startFromLastNode = false;
-
-    [SerializeField]
     protected PathfindingDebugVisual pathfindingDebugVisual;
 
     [SerializeField]
@@ -19,10 +13,20 @@ public class TestingPathfinding : MonoBehaviour
 
     protected Pathfinding pathfinding;
 
+    [SerializeField]
+    protected bool debugGrid = true;
+
+    [SerializeField]
+    protected bool startFromLastNode = false;
+
+    [SerializeField]
+    [Tooltip("X = width, Y = height")]
+    protected Vector2Int gridSize = new Vector2Int(10, 10);
+
     // Start is called before the first frame update
     void Start()
     {
-        pathfinding = new Pathfinding(width: 10, height: 10, startPosition: Vector2Int.zero, debugGrid: debugGrid);
+        pathfinding = new Pathfinding(width: gridSize.x, height: gridSize.y, startPosition: Vector2Int.zero, debugGrid: debugGrid);
 
         if (pathfindingDebugVisual != null)
         {
@@ -53,6 +57,19 @@ public class TestingPathfinding : MonoBehaviour
                     Vector3 end = new Vector3(path[i + 1].Position.x, path[i + 1].Position.y) * 10f + Vector3.one * 5f;
                     Debug.DrawLine(start, end, Color.green, 10f);
                 }
+            }
+        }
+
+        // Put walls
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3 mouseWorldPosition = UtilsClass.GetMouseWorldPosition();
+            var cellPosition = pathfinding.Grid.WorldToCell(mouseWorldPosition);
+            var node = pathfinding.Grid.GetCell(cellPosition.x, cellPosition.y);
+
+            if (node != null)
+            {
+                node.IsWalkable = !node.IsWalkable;
             }
         }
     }

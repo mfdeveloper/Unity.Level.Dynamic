@@ -93,6 +93,13 @@ public class Pathfinding
                     continue;
                 }
 
+                // Avoid unwallkable obstracles (e.g. walls) to follow the path
+                if (!neighbourNode.IsWalkable)
+                {
+                    closedList.Add(neighbourNode);
+                    continue;
+                }
+
                 int tentativeGCost = currentNode.gCost + CalculateDistanceCost(currentNode, neighbourNode);
                 if (tentativeGCost < neighbourNode.gCost)
                 {

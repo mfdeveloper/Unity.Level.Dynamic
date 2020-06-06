@@ -308,7 +308,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 90f7b192acdfc044081e7ce8cd426ad0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -561,8 +561,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugGrid: 0
+  startFromLastNode: 1
   pathfindingDebugVisual: {fileID: 1524625066}
-  pathfindingVisual: {fileID: 0}
+  pathfindingVisual: {fileID: 950689535}
 --- !u!4 &1849187536
 Transform:
   m_ObjectHideFlags: 0
