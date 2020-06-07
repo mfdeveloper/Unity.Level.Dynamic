@@ -12,6 +12,7 @@ public class GridBase<T> where T : new()
 
     // --- Events ---
     public Action<Vector2Int, T> OnCellChange;
+    public Func<Vector2Int, T, T> OnCellFilter;
     public bool showDebug;
 
     public int Width { get; set; }
@@ -94,6 +95,11 @@ public class GridBase<T> where T : new()
     {
         if (x >= 0 && y >= 0 && x < Width && y < Height)
         {
+            if (OnCellFilter != null)
+            {
+                value = OnCellFilter.Invoke(new Vector2Int(x, y), value);
+            }
+
             gridArray[x, y] = value;
             debugTextArray[x, y].text = value.ToString();
         }
