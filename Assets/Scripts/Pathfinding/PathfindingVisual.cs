@@ -64,7 +64,17 @@ public class PathfindingVisual : MonoBehaviour {
                     quadSize = Vector3.zero;
                 }
 
-                MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, grid.CellToWorld(x, y) + quadSize * .5f, 0f, quadSize, Vector2.zero, Vector2.zero);
+                var uvMap = Vector2.zero;
+                float normalizedValue = 0;
+                if (pathNode.IsLast)
+                {
+                    quadSize = Vector3.one * grid.CellSize;
+                    normalizedValue = 50;
+                    normalizedValue = (float) normalizedValue / 100;
+                    uvMap = new Vector2(normalizedValue, 0f);
+                }
+
+                MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, grid.CellToWorld(x, y) + quadSize * .5f, 0f, quadSize, uvMap, uvMap);
             }
         }
 

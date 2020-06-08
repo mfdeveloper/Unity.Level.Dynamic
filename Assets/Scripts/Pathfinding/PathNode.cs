@@ -9,9 +9,23 @@ public class PathNode
     public int fCost;
 
     protected bool walkable = true;
+    protected bool last = false;
 
     public PathNode cameFromNode = null;
     public Vector2Int Position { get; set; }
+    public bool IsLast
+    {
+        get => last;
+
+        set
+        {
+            last = value;
+            if (grid != null)
+            {
+                grid.TriggerCellChange(Position);
+            }
+        }
+    }
 
     public bool IsWalkable {
 

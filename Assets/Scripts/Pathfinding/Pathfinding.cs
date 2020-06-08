@@ -35,6 +35,12 @@ public class Pathfinding
     public virtual List<PathNode> FindPath(Vector2Int endPos, bool startFromLastNode = true)
     {
         var startPos = startFromLastNode && LastNode != null ? LastNode.Position : initialPosition;
+
+        if (LastNode != null)
+        {
+            LastNode.IsLast = false;
+        }
+
         return FindPath(startPos, endPos);
     }
 
@@ -80,6 +86,7 @@ public class Pathfinding
                 OnTakeSnapshot?.Invoke(Grid, currentNode, openList, closedList);
                 OnTakeFinalSnapshot?.Invoke(Grid, path);
 
+                LastNode.IsLast = true;
                 return path;
             }
 

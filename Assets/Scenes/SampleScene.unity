@@ -289,13 +289,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.24602868, y: 0.65276533, z: -0.23758711, w: 0.6759584}
+  m_LocalPosition: {x: -58, y: 50, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: 88, z: 0}
 --- !u!1 &1919555902
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,9 +325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a804a9fa87b25b74c993b721f77ab9b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  images:
-  - {fileID: 2800000, guid: 368c965391d2c5049b4f34d0befebf4f, type: 3}
-  mapsText: []
+  images: []
+  mapsText:
+  - {fileID: 4900000, guid: 054855899fe99f54daea0239986d7550, type: 3}
+  - {fileID: 4900000, guid: 62ab02be9f6075c418af027157c8f0f7, type: 3}
   levelElements:
     wall: {fileID: 5774084726847290072, guid: f5bc3a42bee4fea4abfc86b15f7d290f, type: 3}
     ground: {fileID: 825213705861597184, guid: e3c199f43a551584486ca185b4773ef0, type: 3}
