@@ -158,4 +158,24 @@ public static class MeshUtils {
 		triangles[tIndex+4] = vIndex3;
 		triangles[tIndex+5] = vIndex2;
     }
+
+	// --- Custom methods: By Felipe Ferreira<mfelipeof@gmail.com>
+
+	// TODO: Move these methods to another class
+
+	public static void AddToMeshArrays((Vector3[] vertices, Vector2[] uvs, int[] triangles) meshData, int index, Vector3 pos, float rot, Vector3 baseSize, Vector2 uv00, Vector2 uv11)
+	{
+		AddToMeshArrays(meshData.vertices, meshData.uvs, meshData.triangles, index, pos, rot, baseSize, uv00, uv11);
+	}
+
+	public static (Vector3[] vertices, Vector2[] uvs, int[] triangles) CreateEmptyMeshQuads(int quadCount)
+	{
+		var vertices = new Vector3[4 * quadCount];
+		var uvs = new Vector2[4 * quadCount];
+		var triangles = new int[6 * quadCount];
+
+		return (vertices, uvs, triangles);
+	}
+
+
 }

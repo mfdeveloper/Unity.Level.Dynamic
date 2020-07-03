@@ -8,15 +8,6 @@ public class TestingHeatMap : MonoBehaviour
     [SerializeField]
     protected HeatMapVisual heatMapVisual;
 
-    //protected GridBase<int> grid;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        
-        //heatMapVisual.grid = grid;
-    }
-
     private void Start()
     {
         if (heatMapVisual != null)
@@ -29,7 +20,7 @@ public class TestingHeatMap : MonoBehaviour
     {
         if (heatMapVisual.Grid != null)
         {
-            heatMapVisual.Grid.OnCellFilter += ConvertCell;
+            heatMapVisual.Grid.OnCellFilter += ConvertCellValue;
         }
     }
 
@@ -37,7 +28,7 @@ public class TestingHeatMap : MonoBehaviour
     {
         if (heatMapVisual.Grid != null)
         {
-            heatMapVisual.Grid.OnCellFilter -= ConvertCell;
+            heatMapVisual.Grid.OnCellFilter -= ConvertCellValue;
         }
     }
 
@@ -53,7 +44,7 @@ public class TestingHeatMap : MonoBehaviour
         }
     }
 
-    public virtual int ConvertCell(Vector2Int position, int value)
+    public virtual int ConvertCellValue(Vector2Int position, int value)
     {
         return Mathf.Clamp(value, HeatMapVisual.HEAT_MAP_MIN_VALUE, HeatMapVisual.HEAT_MAP_MAX_VALUE);
     }

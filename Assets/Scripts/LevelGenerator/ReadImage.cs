@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ReadImage : ReaderFile
@@ -6,13 +7,9 @@ public class ReadImage : ReaderFile
     protected Texture2D img;
     protected Texture2D[] imageFiles;
     protected List<Color> unknownColors = new List<Color>();
-
     protected string levelsPath = "Levels/Images";
 
-    public override bool ContainsFile 
-    {
-        get => imageFiles != null && imageFiles.Length > 0;  
-    }
+    public override bool ContainsFile => imageFiles != null && imageFiles.Length > 0;
 
     public ReadImage(LevelElements levelElements, Texture2D[] images = null)
     {
@@ -49,19 +46,8 @@ public class ReadImage : ReaderFile
 
             dimensions = (img.width, img.height);
 
-            /**
-             * TODO: Refactor this to better PERFORMANCE.
-             *       If the image contains many pixels,
-             *       can be so slow to generate level
-             *       
-             * TODO: Verify why Color[] cannot
-             *       be assigned to objec[] array
-             */
             Color[] pixels = img.GetPixels();
-            foreach (var pixel in pixels)
-            {
-                characters.Add(pixel);
-            }
+            characters.AddRange(pixels.OfType<object>());
         }
 
         return this;
